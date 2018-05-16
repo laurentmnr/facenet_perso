@@ -53,3 +53,34 @@ A couple of pretrained models are provided. They are trained using softmax loss 
 
 ## Performance
 The accuracy on LFW for the model [20180402-114759](https://drive.google.com/open?id=1EXPBSXwTaqrSC0OhUdXNmKSh9qJUQ55-) is 0.99650+-0.00252. A description of how to run the test can be found on the page [Validate on LFW](https://github.com/davidsandberg/facenet/wiki/Validate-on-lfw). Note that the input images to the model need to be standardized using fixed image standardization (use the option `--use_fixed_image_standardization` when running e.g. `validate_on_lfw.py`).
+
+
+
+
+
+
+# HOWTO face recognition:
+
+## Pre-settings:
+Place at root of facet-master
+export PYTHONPATH=/Users/laurent/Desktop/facenet-master/src
+
+
+## Take pictures:
+python3 src/take_pictures.py --person Laurent --n_pictures 10
+
+## Align data:
+python3 src/align/align_dataset_mtcnn.py datasets/Perso datasets/Perso_aligned
+
+## Train classifier:
+python3 src/classifier.py TRAIN datasets/Perso_aligned pretrained_models/20180408-102900/20180408-102900.pb classifier_models/model_perso2.pkl
+
+## Live face recognition:
+BE CAREFUL: change pretrained model/ classifier model in face.py file
+
+python3 src/real_time_face_recognition.py
+
+## Live face verification:
+BE CAREFUL: change pretrained model/ classifier model in face2.py file
+
+python3 src/real_time_face_verification.py
